@@ -16,26 +16,23 @@ public class GamePlayUIController : MonoBehaviour
         SetupButtons();
     }
 
+    // Sets up buttons in UI
     private void SetupButtons() {
         endTurnButton.onClick.AddListener(() => { TurnManager.instance.EndTurn(); });
     }
 
+    // Turns on the "Player X's turn" text showing up.
     public void UpdateCurrentPlayerTurn(int id) {
 
         currentPlayerTurnText.gameObject.SetActive(true);
         currentPlayerTurnText.text = $"Player {id}'s turn!";
 
-        // TODO: Make it blink
-
         StartCoroutine(BlinkCurrentPlayerTurn());
 
     }
 
+    // Makes Text saying player's turn blink
     private IEnumerator BlinkCurrentPlayerTurn() {
-        yield return new WaitForSeconds(0.5f);
-        currentPlayerTurnText.gameObject.SetActive(false);
-        yield return new WaitForSeconds(0.5f);
-        currentPlayerTurnText.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.5f);
         currentPlayerTurnText.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.5f);

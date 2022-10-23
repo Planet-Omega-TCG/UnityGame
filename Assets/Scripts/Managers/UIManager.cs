@@ -23,7 +23,6 @@ public class UIManager : MonoBehaviour
         UpdateHealthValues(player1.health, player2.health);
     }
 
-
     public void UpdateInstantsValues(int newInstants) {
         instantsCounterText.text = newInstants.ToString();
     }

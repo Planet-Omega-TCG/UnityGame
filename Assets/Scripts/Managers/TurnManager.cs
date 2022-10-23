@@ -11,21 +11,22 @@ public class TurnManager : MonoBehaviour
 
     private void Awake() {
         instance = this;
-        StartTurnGameplay(1);
+        
     }
 
     private void Start() {
         StartTurnGameplay(1);
     }
 
+    // Beginning of each turn
     public void StartTurnGameplay(int playerID) {
         currentPlayerTurn = playerID;
-        PlayerManager.instance.AssignTurn(currentPlayerTurn);
         StartTurn();
     }
 
     public void StartTurn() {
         GamePlayUIController.instance.UpdateCurrentPlayerTurn(currentPlayerTurn);
+        PlayerManager.instance.AssignTurn(currentPlayerTurn); // Assign turns at the beginning of each turn
     }
 
 

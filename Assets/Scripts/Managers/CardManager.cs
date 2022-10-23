@@ -24,7 +24,13 @@ public class CardManager : MonoBehaviour
         {
             CardController newCard = Instantiate(cardControllerPrefab, player1Hand);
             newCard.transform.localPosition = Vector3.zero;
-            newCard.Initialize(card);
+            newCard.Initialize(card, 1);
+        }
+        foreach (Card card in cards)
+        {
+            CardController newCard = Instantiate(cardControllerPrefab, player2Hand);
+            newCard.transform.localPosition = Vector3.zero;
+            newCard.Initialize(card, 2);
         }
     }
 }

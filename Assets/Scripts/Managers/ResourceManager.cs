@@ -10,6 +10,15 @@ public class ResourceManager : MonoBehaviour
 
     private void Awake() {
         instance = this;
-        instantsAvailable = Random.Range(1, 6) + Random.Range(1,6) + Random.Range(1, 6) + Random.Range(1, 6);
+
+        instantsAvailable = ThrowDice(4); // Four dice are thrown at the beginning of each sequence
     }
+
+    // Returns the outcome of throwing n dice
+    private int ThrowDice(int n) {
+        int nb = 0;
+        for (int i = 0; i < n; ++i) nb += Random.Range(1, 6);
+        return nb;
+    }
+
 }
