@@ -20,8 +20,8 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
     private Color yellow    = new Color(0.98f, 0.85f, 0.47f, 0.9f);
     private Color blue      = new Color(0.37f, 0.43f, 0.72f, 0.9f);
     private Color red       = new Color(0.81f, 0.23f, 0.23f, 0.9f);
-
-   
+    
+    public bool resolvingCard = false;
 
     // Write the card "card"'s info into the card object displays.
     public void Initialize(Card card, int ownerID) {
@@ -67,6 +67,11 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
 
     }
 
+    internal void ApplyEffect() {
+        Debug.Log("Applying effect of " + this.card.ToString());
+        resolvingCard = true;
+    }
+
     // When the mouse goes over the card (should zoom in here!)
     public void OnPointerEnter(PointerEventData eventData) {
         
@@ -75,16 +80,23 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
     // When the card is clicked.
     public void OnPointerDown(PointerEventData eventData) {
 
-        // If the card is already in the sequence do nothing or if the player does not own this card
-        if (originalParent.name != "Sequence" && TurnManager.instance.currentPlayerTurn == card.ownerID)
-                
+        // If the card is not in the sequence and if the player owns the card
+        if (originalParent.name != "Sequence") {
+            if (SequenceManager.instance.currentPlayerTurn == card.ownerID)
+            {
+                transform.SetParent(transform.root);
+                // When we click we disable the raycast of the background because 
+                // we don't want it to think it is being left on the background
+                cardBackground.raycastTarget = false;
+            }
+        }
+        else // This is a card in the sequence
         {
-            Debug.Log("Down: Li toca a " + TurnManager.instance.currentPlayerTurn + " i toca una carta owner " + card.ownerID);
-
-            transform.SetParent(transform.root);
-            // When we click we disable the raycast of the background because 
-            // we don't want it to think it is being left on the background
-            cardBackground.raycastTarget = false;
+            if (this.resolvingCard)
+            {
+                transform.SetParent(transform.root);
+                cardBackground.raycastTarget = false;
+            }
         }
 
     }
@@ -93,23 +105,48 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
     public void OnPointerUp(PointerEventData eventData) {
 
         // If the card is already in the sequence or not owner by player do nothing
-        if (originalParent.name != "Sequence" && TurnManager.instance.currentPlayerTurn == card.ownerID) {
-            Debug.Log("Up: Li toca a " + TurnManager.instance.currentPlayerTurn + " i toca una carta owner " + card.ownerID);
-
-            // If the card is already in the sequence do nothing
-            cardBackground.raycastTarget = true;  // To be able to pick it up again
-            AnalyzePointerUp(eventData);
+        if (originalParent.name != "Sequence")
+        {
+            if (SequenceManager.instance.currentPlayerTurn == card.ownerID)
+            {
+                // If the card is already in the sequence do nothing
+                cardBackground.raycastTarget = true;  // To be able to pick it up again
+                AnalyzePointerUp(eventData);
+            }
+        }
+        else
+        {
+            if (this.resolvingCard)
+            {
+                AnalyzePointerUp(eventData);
+            }
         }
     }
 
     private void AnalyzePointerUp(PointerEventData eventData) {
         // If card has been left at the sequence leave it there, otherwise return to hand.
-        if (eventData.pointerEnter != null && eventData.pointerEnter.name == "Sequence") PlayCard(eventData.pointerEnter.transform);
-        else ReturnToOriginalPlace();
+        if (eventData.pointerEnter != null
+            && eventData.pointerEnter.name == "Sequence"
+            && ResourceManager.instance.instantsAvailable >= card.instants)
+            PlayCard(eventData.pointerEnter.transform);
+        else {
+            if (eventData.pointerEnter != null && resolvingCard && eventData.pointerEnter.name == $"Player{this.card.ownerID}Past")
+            {
+                MoveCardTo(eventData.pointerEnter.transform);
+                resolvingCard = false;
+            }
+            else ReturnToOriginalPlace();
+        } 
     }
 
     // If card is left in a correct place its parent changes.
     private void PlayCard(Transform playArea) {
+        MoveCardTo(playArea);
+        SequenceManager.instance.AddCardToSequence(this);
+    }
+
+    // Move this.card to a given transform area (e.g. player1Past, Sequence)
+    public void MoveCardTo(Transform playArea) {
         transform.SetParent(playArea);          // The card's parent is where it has been left now.
         transform.localPosition = Vector3.zero; // Place card in the center of the area.
         originalParent = playArea;
@@ -130,10 +167,13 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
 
     // change the card position to the mouse position while dragging.
     public void OnDrag(PointerEventData eventData) {
-        if(originalParent.name != "Sequence" && TurnManager.instance.currentPlayerTurn == card.ownerID)
+
+        if(originalParent.name != "Sequence" && SequenceManager.instance.currentPlayerTurn == card.ownerID)
             transform.position = eventData.position;
+        else if(originalParent.name == "Sequence" && resolvingCard) transform.position = eventData.position;
 
     }
+
 
     
 }

@@ -9,7 +9,7 @@ public class GamePlayUIController : MonoBehaviour
 {
     public static GamePlayUIController instance;
     public TextMeshProUGUI currentPlayerTurnText;
-    public Button endTurnButton;
+    public Button endTurnButton, endSequenceButton, okButton;
 
     private void Awake() {
         instance = this;
@@ -18,7 +18,9 @@ public class GamePlayUIController : MonoBehaviour
 
     // Sets up buttons in UI
     private void SetupButtons() {
-        endTurnButton.onClick.AddListener(() => { TurnManager.instance.EndTurn(); });
+        endTurnButton.onClick.AddListener(() => { SequenceManager.instance.EndTurn(); });
+        endSequenceButton.onClick.AddListener(() => SequenceManager.instance.ResolveSequence());
+        okButton.onClick.AddListener(() => SequenceManager.instance.ResolveNextCard());
     }
 
     // Turns on the "Player X's turn" text showing up.

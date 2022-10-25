@@ -50,4 +50,8 @@ public class Card {
         image           = card.image;
     }
 
+    public override string ToString() { 
+        return cardName + " (" + ownerID + ") i: " + instants;
+    }
+
 }
