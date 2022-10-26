@@ -21,8 +21,9 @@ namespace TMPro.Examples
         }
 
 
-        void Start()
+        void OnEnable()
         {
+
             StartCoroutine(WarpText());
         }
 
@@ -53,7 +54,7 @@ namespace TMPro.Examples
             Matrix4x4 matrix;
 
             m_TextComponent.havePropertiesChanged = true; // Need to force the TextMeshPro Object to be updated.
-            CurveScale *= 10;
+            CurveScale = 20;
             float old_CurveScale = CurveScale;
             AnimationCurve old_curve = CopyAnimationCurve(VertexCurve);
 

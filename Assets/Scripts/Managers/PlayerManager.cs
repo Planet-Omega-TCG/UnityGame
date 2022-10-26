@@ -33,6 +33,7 @@ public class PlayerManager : MonoBehaviour
     public void DamagePlayer(int id, int damage) {
         Player p = FindPlayerByID(id);
         FindPlayerByID(id).health -= damage; // use negative damage to heal
+        UIManager.instance.UpdatePlayerValues(players[0], players[1]);  // update healt on screen
 
         if (p.health <= 0) PlayerLost(id);
     }
@@ -43,6 +44,7 @@ public class PlayerManager : MonoBehaviour
 
     private Player FindPlayerByID(int id) {
         foreach(Player p in players) if (p.id == id) return p;
-        return null;
+        throw new Exception("Cannot find player with id " + id);
     }
+
 }

@@ -118,6 +118,7 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
         {
             if (this.resolvingCard)
             {
+                cardBackground.raycastTarget = true;
                 AnalyzePointerUp(eventData);
             }
         }
@@ -127,7 +128,7 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
         // If card has been left at the sequence leave it there, otherwise return to hand.
         if (eventData.pointerEnter != null
             && eventData.pointerEnter.name == "Sequence"
-            && ResourceManager.instance.instantsAvailable >= card.instants)
+            && SequenceManager.instance.instantsAvailable >= card.instants)
             PlayCard(eventData.pointerEnter.transform);
         else {
             if (eventData.pointerEnter != null && resolvingCard && eventData.pointerEnter.name == $"Player{this.card.ownerID}Past")
@@ -168,10 +169,16 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
     // change the card position to the mouse position while dragging.
     public void OnDrag(PointerEventData eventData) {
 
-        if(originalParent.name != "Sequence" && SequenceManager.instance.currentPlayerTurn == card.ownerID)
+        if (originalParent.name != "Sequence" && SequenceManager.instance.currentPlayerTurn == card.ownerID)
+        {
+            Debug.Log("Dragging because not from sequence and my turn");
             transform.position = eventData.position;
-        else if(originalParent.name == "Sequence" && resolvingCard) transform.position = eventData.position;
-
+        }
+        else if (originalParent.name == "Sequence" && resolvingCard)
+        {
+            Debug.Log("Dragging because from sequence and card is resolving");
+            transform.position = eventData.position;
+        }
     }
 
 

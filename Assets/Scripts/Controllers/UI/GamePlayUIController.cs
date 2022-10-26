@@ -5,10 +5,9 @@ using TMPro;
 using System;
 using UnityEngine.UI;
 
-public class GamePlayUIController : MonoBehaviour
-{
+public class GamePlayUIController : MonoBehaviour {
     public static GamePlayUIController instance;
-    public TextMeshProUGUI currentPlayerTurnText;
+    public TextMeshProUGUI currentPlayerTurnText, newSequenceText, resolvingSequenceText;
     public Button endTurnButton, endSequenceButton, okButton;
 
     private void Awake() {
@@ -24,22 +23,32 @@ public class GamePlayUIController : MonoBehaviour
     }
 
     // Turns on the "Player X's turn" text showing up.
-    public void UpdateCurrentPlayerTurn(int id) {
+    public void ShowCurrentPlayerTurnText(int id) {
 
         currentPlayerTurnText.gameObject.SetActive(true);
         currentPlayerTurnText.text = $"Player {id}'s turn!";
 
-        StartCoroutine(BlinkCurrentPlayerTurn());
+        StartCoroutine(BlinkGameObject(currentPlayerTurnText.gameObject, 3, 0.5f, true));
 
     }
 
-    // Makes Text saying player's turn blink
-    private IEnumerator BlinkCurrentPlayerTurn() {
-        yield return new WaitForSeconds(0.5f);
-        currentPlayerTurnText.gameObject.SetActive(false);
-        yield return new WaitForSeconds(0.5f);
-        currentPlayerTurnText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        currentPlayerTurnText.gameObject.SetActive(false);
+    public void ShowResolvingSequenceText() {
+        resolvingSequenceText.gameObject.SetActive(true);
+        StartCoroutine(BlinkGameObject(resolvingSequenceText.gameObject, 1, 1.5f, true));
+    }
+
+    public void ShowNewSequenceText() {
+        newSequenceText.gameObject.SetActive(true);
+        StartCoroutine(BlinkGameObject(newSequenceText.gameObject, 1, 1.5f, true));
+    }
+
+    private IEnumerator BlinkGameObject(GameObject obj, int times, float time, bool act) {
+        bool active = act;
+        for(int i = 0; i < times; ++i)
+        {
+            yield return new WaitForSeconds(time);
+            obj.SetActive(!act);
+            act = !act;
+        }
     }
 }
