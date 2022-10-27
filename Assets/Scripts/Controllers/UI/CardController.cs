@@ -125,18 +125,30 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
     }
 
     private void AnalyzePointerUp(PointerEventData eventData) {
-        // If card has been left at the sequence leave it there, otherwise return to hand.
-        if (eventData.pointerEnter != null
-            && eventData.pointerEnter.name == "Sequence"
-            && SequenceManager.instance.instantsAvailable >= card.instants)
-            PlayCard(eventData.pointerEnter.transform);
-        else {
-            if (eventData.pointerEnter != null && resolvingCard && eventData.pointerEnter.name == $"Player{this.card.ownerID}Past")
+
+        GameObject playArea = eventData.pointerEnter;
+
+        // check if player left card in some playable area
+        if (playArea == null) ReturnToOriginalPlace();
+
+        else
+        {
+            if (playArea.name == "Sequence" && SequenceManager.instance.instantsAvailable >= card.instants)
             {
-                MoveCardTo(eventData.pointerEnter.transform);
-                resolvingCard = false;
+                PlayCard(playArea.transform);
+            }
+            else if (playArea.name == $"Player{this.card.ownerID}Past" || playArea.name == $"Player{this.card.ownerID}Memory")
+            {
+                // Only if card has been resolved
+                if (resolvingCard)
+                {
+                    MoveCardTo(playArea.transform);
+                    resolvingCard = false;
+                }
+                else ReturnToOriginalPlace();
             }
             else ReturnToOriginalPlace();
+
         } 
     }
 
@@ -171,16 +183,12 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
 
         if (originalParent.name != "Sequence" && SequenceManager.instance.currentPlayerTurn == card.ownerID)
         {
-            Debug.Log("Dragging because not from sequence and my turn");
             transform.position = eventData.position;
         }
         else if (originalParent.name == "Sequence" && resolvingCard)
         {
-            Debug.Log("Dragging because from sequence and card is resolving");
             transform.position = eventData.position;
         }
     }
-
-
     
 }
