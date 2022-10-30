@@ -11,14 +11,14 @@ public class PlayerManager : MonoBehaviour
     private void Awake() {
         instance = this;
 
-        CreatePlayers();
+        //CreatePlayers(); // This should be called by UIManager!
     }
 
     private void Start() {
         UIManager.instance.UpdatePlayerValues(players[0], players[1]);
     }
 
-    private void CreatePlayers() {
+    public void CreatePlayers() {
         players.Add(new Player(20, 1));
         players.Add(new Player(20, 2));
     }

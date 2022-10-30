@@ -9,9 +9,19 @@ public class UIManager : MonoBehaviour
     public static UIManager instance;
     public TextMeshProUGUI player1HealthText, player2HealthText, instantsCounterText;
     public GameEndUIController gameEndUI;
+    public GameStartUIController gameStartUI;
+
+    private List<PlayerManager> players;
 
     private void Awake() {
         instance = this;
+
+        GameStarted();
+    }
+
+    public void GameStarted() {
+        PlayerManager.instance.CreatePlayers(); // Players are created
+        gameStartUI.gameObject.SetActive(true); //This screen asks for travellers
     }
 
     public void GameFinished(Player winner) {

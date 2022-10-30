@@ -81,7 +81,7 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
     public void OnPointerDown(PointerEventData eventData) {
 
         // If the card is not in the sequence and if the player owns the card
-        if (originalParent.name != "Sequence") {
+        if (originalParent.name == $"Player{this.card.ownerID}Hand") {
             if (SequenceManager.instance.currentPlayerTurn == card.ownerID)
             {
                 transform.SetParent(transform.root);
@@ -104,8 +104,8 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
     // When the card is no longer being clicked.
     public void OnPointerUp(PointerEventData eventData) {
 
-        // If the card is already in the sequence or not owner by player do nothing
-        if (originalParent.name != "Sequence")
+        // If the card is already in the sequence or not owned by player do nothing
+        if (originalParent.name == $"Player{this.card.ownerID}Hand")
         {
             if (SequenceManager.instance.currentPlayerTurn == card.ownerID)
             {
@@ -181,7 +181,7 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
     // change the card position to the mouse position while dragging.
     public void OnDrag(PointerEventData eventData) {
 
-        if (originalParent.name != "Sequence" && SequenceManager.instance.currentPlayerTurn == card.ownerID)
+        if (originalParent.name == $"Player{this.card.ownerID}Hand" && SequenceManager.instance.currentPlayerTurn == card.ownerID)
         {
             transform.position = eventData.position;
         }

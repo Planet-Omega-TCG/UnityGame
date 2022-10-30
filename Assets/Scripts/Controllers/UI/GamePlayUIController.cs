@@ -22,11 +22,16 @@ public class GamePlayUIController : MonoBehaviour {
         okButton.onClick.AddListener(() => SequenceManager.instance.ResolveNextCard());
     }
 
+    private void DisplayTravellers(List<CardController> travellers) {
+
+    }
+
     // Turns on the "Player X's turn" text showing up.
     public void ShowCurrentPlayerTurnText(int id) {
 
         currentPlayerTurnText.gameObject.SetActive(true);
         currentPlayerTurnText.text = $"Player {id}'s turn!";
+        currentPlayerTurnText.transform.SetAsLastSibling(); // bring text on top of cards
 
         StartCoroutine(BlinkGameObject(currentPlayerTurnText.gameObject, 3, 0.5f, true));
 
