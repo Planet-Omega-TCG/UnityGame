@@ -23,6 +23,13 @@ public class PlayerManager : MonoBehaviour
         players.Add(new Player(20, 2));
     }
 
+    public void LoadTravellersInfo(List<Traveller> travellers) {
+        for (int i = 0; i < travellers.Count; ++i)
+        {
+            players[i].traveller = travellers[i];
+        }
+    }
+
     // Updates boolean myTurn for each Player in the list of players
     // Will be called by TurnManager
     internal void AssignTurn(int currentPlayerTurn) {

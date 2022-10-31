@@ -14,16 +14,17 @@ public enum CardColor {
 public enum CardType {
     CHAINERTHOUGHT,
     THOUGHT,
-    NEUROSIS
+    NEUROSIS,
+    TRAVELLER
 }
 
+// Card should be the superclass of Traveller, Thought and Neurose.
 [System.Serializable]
 public class Card {
 
     public string       cardName;
     public int          instants;
     public string       description;
-    public CardType     type;
     public CardColor    color;
     public Sprite       image;
     public int          ownerID;
@@ -32,12 +33,11 @@ public class Card {
 
     }
 
-    public Card(string cardName, int instants, string description, CardColor color, CardType type, Sprite image) {
+    public Card(string cardName, int instants, string description, CardColor color, Sprite image) {
         this.cardName    = cardName;
         this.instants    = instants;
         this.description = description;
         this.color       = color;
-        this.type        = type;
         this.image       = image;
     }
 
@@ -46,7 +46,6 @@ public class Card {
         instants        = card.instants;
         description     = card.description;
         color           = card.color;
-        type            = card.type;
         image           = card.image;
     }
 

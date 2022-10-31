@@ -10,7 +10,7 @@ public class GameStartUIController : MonoBehaviour
 
     public static GameStartUIController instance;
 
-    public List<Card> chosenTravellers = new List<Card>();
+    public List<Traveller> chosenTravellers = new List<Traveller>();
 
 
     public TextMeshProUGUI playerIdText;
@@ -36,7 +36,7 @@ public class GameStartUIController : MonoBehaviour
     public void AssignAndAskForNextTraveller(String chosenTravellerName) {
 
         // Add traveller to the list
-        Card traveller = CardManager.instance.FindTravellerByName(chosenTravellerName);
+        Traveller traveller = CardManager.instance.FindTravellerByName(chosenTravellerName);
         chosenTravellers.Add(traveller);
 
         // Ask for next traveller

@@ -970,7 +970,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &217111286
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2399,42 +2399,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d262677421f36b4ba9f2699f0df6a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  travellerDictionary:
+  - cardName: Traveller1
+    instants: 5
+    description: sasdf
+    color: 4
+    image: {fileID: 21300000, guid: 1f836d552b715b14196af4d8a9b41eb4, type: 3}
+    ownerID: 0
+    DrawExtra: 2
+    memorySlots: 2
+    instantPower: 3
+  - cardName: Traveller2
+    instants: 5
+    description: sasdf
+    color: 4
+    image: {fileID: 21300000, guid: 73acbf87646099d46868f03280b6d9c1, type: 3}
+    ownerID: 0
+    DrawExtra: 2
+    memorySlots: 2
+    instantPower: 3
   cardDictionary:
   - cardName: asdf
     instants: 3
     description: 
-    type: 0
     color: 0
     image: {fileID: 0}
     ownerID: 0
   - cardName: qeretrert
     instants: 3
     description: 
-    type: 0
     color: 1
     image: {fileID: 0}
     ownerID: 0
   - cardName: ghjklk
     instants: 3
     description: 
-    type: 0
     color: 2
     image: {fileID: 0}
-    ownerID: 0
-  travellerDictionary:
-  - cardName: Traveller1
-    instants: 0
-    description: 
-    type: 0
-    color: 4
-    image: {fileID: 21300000, guid: 1f836d552b715b14196af4d8a9b41eb4, type: 3}
-    ownerID: 0
-  - cardName: Traveller2
-    instants: 0
-    description: 
-    type: 0
-    color: 0
-    image: {fileID: 21300000, guid: 73acbf87646099d46868f03280b6d9c1, type: 3}
     ownerID: 0
   cardControllerPrefab: {fileID: 8023192306725236232, guid: b71a8e62911b67e41ad8aba8e150039c, type: 3}
   player1Hand: {fileID: 1911230264}
@@ -6098,49 +6099,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1776164503}
   m_CullTransparentMesh: 1
---- !u!1 &1806962201
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1806962203}
-  - component: {fileID: 1806962202}
-  m_Layer: 0
-  m_Name: CardDatabase
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1806962202
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806962201}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f85615eca455dc944a5f77a1dfb9cd08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1806962203
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1806962201}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1192.222, y: 855.15137, z: -107.07005}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1890116022
 GameObject:
   m_ObjectHideFlags: 0

@@ -3,23 +3,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardManager : MonoBehaviour
-{
-    public static CardManager instance;
-    public List<Card> cardDictionary = new List<Card>();
-    public List<Card> travellerDictionary = new List<Card>();
+[System.Serializable]
+public class CardManager : MonoBehaviour {
 
+    public static CardManager instance;
     public CardController cardControllerPrefab;
 
-    public Transform player1Hand, player2Hand, player1Traveller, player2Traveller;
+    public List<Card> cardDictionary = new List<Card>();
+    public List<Traveller> travellerDictionary = new List<Traveller>();
 
+    public Transform player1Hand, player2Hand, player1Traveller, player2Traveller;
 
     private void Awake() {
         instance = this;
     }
 
     private void Start() {
-        GenerateCards();   
+        GenerateCards();
     }
 
     // Generates cards and adds them to each player's hand.
@@ -38,7 +38,7 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    public void GenerateTravellers(List<Card> travellers) {
+    public void GenerateTravellers(List<Traveller> travellers) {
         
         CardController t1 = Instantiate(cardControllerPrefab, player1Traveller);
         t1.transform.localPosition = Vector3.zero;
@@ -48,15 +48,17 @@ public class CardManager : MonoBehaviour
         t2.transform.localPosition = Vector3.zero;
         t2.Initialize(travellers[1], 2);
 
+        PlayerManager.instance.LoadTravellersInfo(travellers);
+
     }
 
-    public Card FindTravellerByName(string name) {
+    public Traveller FindTravellerByName(string name) {
 
-        foreach(Card tr in travellerDictionary)
+        foreach(Traveller tr in travellerDictionary)
         {
             if (tr.cardName == name) return tr;
         }
-        throw new Exception("Cannot find traveller with naame " + name);
+        throw new Exception("Cannot find traveller with name " + name);
     }
 
 }

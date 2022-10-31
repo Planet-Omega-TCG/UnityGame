@@ -13,12 +13,12 @@ public class CardDatabase : MonoBehaviour
 
         cardList.Add(new Card("Moment of Rage", 1, 
                             "Target Neurosis in your Cortex Argues. \n (Returns to the Cortex after Arguing)\n", 
-                            CardColor.RED, CardType.THOUGHT, Resources.Load<Sprite>("Moment_of_Rage")));
+                            CardColor.RED, Resources.Load<Sprite>("Moment_of_Rage")));
         cardList.Add(new Card("Studied Move", 3, 
                             "Chainer.\nSculpt 2.\nIf Chained, you choose who starts the Chained Sequence.",      
-                            CardColor.YELLOW, CardType.THOUGHT, Resources.Load<Sprite>("Studied_Move")));
+                            CardColor.YELLOW, Resources.Load<Sprite>("Studied_Move")));
         cardList.Add(new Card("Gorudo's Lake", 3, 
                             "Sculpt 2.\n\n [Fluid 1-5.]",                                                        
-                            CardColor.BLUE, CardType.THOUGHT, Resources.Load<Sprite>("Gorudo's_Lake")));
+                            CardColor.BLUE, Resources.Load<Sprite>("Gorudo's_Lake")));
     }
 }

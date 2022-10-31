@@ -5,6 +5,11 @@ using UnityEngine;
 public class Player{
     public int health;
     public int id;
+    public Card traveller;
+
+    public int memorySlots;
+    public int manaBase;
+    public int extraDraw;
 
     public bool myTurn;
 
