@@ -39,7 +39,7 @@ public class GamePlayUIController : MonoBehaviour {
 
     public void ShowResolvingSequenceText() {
         resolvingSequenceText.gameObject.SetActive(true);
-        resolvingSequenceText.gameObject.SetActive(true); // bring to the front
+        resolvingSequenceText.transform.SetAsLastSibling(); // bring to the front
         StartCoroutine(BlinkGameObject(resolvingSequenceText.gameObject, 1, 1.5f, true));
     }
 

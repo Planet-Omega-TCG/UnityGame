@@ -24,7 +24,7 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
     public bool resolvingCard = false;
 
     // Write the card "card"'s info into the card object displays.
-    public void Initialize(Card card, int ownerID) {
+    public void Initialize(Card card, int ownerID, Transform intendedParent) {
 
         this.card               = new Card(card) { ownerID = ownerID };
 
@@ -35,7 +35,7 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
 
         ChangeBackgroundColor(card.color);  // Changes background of card depending on its color.
 
-        originalParent = transform.parent; // Gets the original parent of the card (ex: player1Hand, player1Field)
+        originalParent = intendedParent; // Gets the original parent of the card (ex: player1Hand, player1Field)
 
     }
 
@@ -68,7 +68,6 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
     }
 
     internal void ApplyEffect() {
-        Debug.Log("Applying effect of " + this.card.ToString());
         resolvingCard = true;
     }
 
@@ -156,6 +155,7 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
     private void PlayCard(Transform playArea) {
         MoveCardTo(playArea);
         SequenceManager.instance.AddCardToSequence(this);
+        CardManager.instance.RemoveCardFromHand(this.card);
     }
 
     // Move this.card to a given transform area (e.g. player1Past, Sequence)

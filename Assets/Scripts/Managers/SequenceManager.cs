@@ -30,7 +30,7 @@ public class SequenceManager : MonoBehaviour
 
         currentPlayerTurn = playerID;       // this player starts now
         instantsAvailable = ThrowDice(4);   // Four dice are thrown at the beginning of each sequence
-        // draw cards here
+        CardManager.instance.DrawCards(instantsAvailable/4); 
         StartTurn(playerID);
 
         // UI
@@ -75,12 +75,8 @@ public class SequenceManager : MonoBehaviour
     public void ResolveNextCard() {
         if (sequenceCards.Count > 0)
         {
-            Debug.Log("Removing card: " + sequenceCards[0].card.ToString());
             sequenceCards.Remove(sequenceCards[0]);
-            if (sequenceCards.Count > 0)
-            {
-                sequenceCards[0].ApplyEffect();
-            }
+            if (sequenceCards.Count > 0) sequenceCards[0].ApplyEffect();
             else EndSequence();
         }
         else EndSequence();

@@ -22,6 +22,7 @@ public class UIManager : MonoBehaviour
     public void GameStarted() {
         PlayerManager.instance.CreatePlayers(); // Players are created
         gameStartUI.gameObject.SetActive(true); //This screen asks for travellers
+        gameStartUI.AskForTravellers();
     }
 
     public void GameFinished(Player winner) {

@@ -49,7 +49,7 @@ public class PlayerManager : MonoBehaviour
         UIManager.instance.GameFinished(id==1 ? FindPlayerByID(2) : FindPlayerByID(1));
     }
 
-    private Player FindPlayerByID(int id) {
+    public Player FindPlayerByID(int id) {
         foreach(Player p in players) if (p.id == id) return p;
         throw new Exception("Cannot find player with id " + id);
     }

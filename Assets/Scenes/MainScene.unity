@@ -412,7 +412,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -987, y: 707}
+  m_AnchoredPosition: {x: -960.12, y: 701}
   m_SizeDelta: {x: 709.607, y: 206.002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &80538239
@@ -1031,7 +1031,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.7162738, g: 0, b: 1, a: 1}
+  m_Color: {r: 0.8574917, g: 0.495283, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -2399,25 +2399,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d262677421f36b4ba9f2699f0df6a40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  travellerDictionary:
-  - cardName: Traveller1
-    instants: 5
-    description: sasdf
-    color: 4
-    image: {fileID: 21300000, guid: 1f836d552b715b14196af4d8a9b41eb4, type: 3}
-    ownerID: 0
-    DrawExtra: 2
-    memorySlots: 2
-    instantPower: 3
-  - cardName: Traveller2
-    instants: 5
-    description: sasdf
-    color: 4
-    image: {fileID: 21300000, guid: 73acbf87646099d46868f03280b6d9c1, type: 3}
-    ownerID: 0
-    DrawExtra: 2
-    memorySlots: 2
-    instantPower: 3
+  cardControllerPrefab: {fileID: 8023192306725236232, guid: b71a8e62911b67e41ad8aba8e150039c, type: 3}
   cardDictionary:
   - cardName: asdf
     instants: 3
@@ -2437,11 +2419,33 @@ MonoBehaviour:
     color: 2
     image: {fileID: 0}
     ownerID: 0
-  cardControllerPrefab: {fileID: 8023192306725236232, guid: b71a8e62911b67e41ad8aba8e150039c, type: 3}
-  player1Hand: {fileID: 1911230264}
-  player2Hand: {fileID: 1515067140}
-  player1Traveller: {fileID: 985822741}
-  player2Traveller: {fileID: 2015925175}
+  travellerDictionary:
+  - cardName: Traveller1
+    instants: 5
+    description: sasdf
+    color: 4
+    image: {fileID: 21300000, guid: 1f836d552b715b14196af4d8a9b41eb4, type: 3}
+    ownerID: 0
+    DrawExtra: 2
+    memorySlots: 2
+    instantPower: 3
+  - cardName: Traveller2
+    instants: 5
+    description: sasdf
+    color: 4
+    image: {fileID: 21300000, guid: 73acbf87646099d46868f03280b6d9c1, type: 3}
+    ownerID: 0
+    DrawExtra: 2
+    memorySlots: 2
+    instantPower: 3
+  player1Deck: []
+  player2Deck: []
+  player1Hand: []
+  player2Hand: []
+  player1HandArea: {fileID: 1911230264}
+  player2HandArea: {fileID: 1515067140}
+  player1TravellerArea: {fileID: 985822741}
+  player2TravellerArea: {fileID: 2015925175}
 --- !u!114 &696586873
 MonoBehaviour:
   m_ObjectHideFlags: 0
