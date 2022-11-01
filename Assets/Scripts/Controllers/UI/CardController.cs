@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.EventSystems;
 using System;
+using DG.Tweening;
 
 public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IDragHandler
 {
@@ -36,6 +37,9 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
         ChangeBackgroundColor(card.color);  // Changes background of card depending on its color.
 
         originalParent = intendedParent; // Gets the original parent of the card (ex: player1Hand, player1Field)
+        Tweener tween = transform.DOMove(intendedParent.transform.position, 1f, true);
+        transform.DOScale(0.85f, 0.85f);
+        tween.onComplete += () => { transform.SetParent(intendedParent); };
 
     }
 
@@ -88,15 +92,14 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
                 // we don't want it to think it is being left on the background
                 cardBackground.raycastTarget = false;
             }
+            else transform.DOShakeScale(0.35f, 0.5f, 5);
         }
-        else // This is a card in the sequence
-        {
-            if (this.resolvingCard)
+        else if (this.resolvingCard) // The card is in the sequence
             {
                 transform.SetParent(transform.root);
                 cardBackground.raycastTarget = false;
             }
-        }
+        else transform.DOShakeScale(0.35f, 0.5f, 5);
 
     }
 
@@ -144,9 +147,17 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
                     MoveCardTo(playArea.transform);
                     resolvingCard = false;
                 }
-                else ReturnToOriginalPlace();
+                else
+                {
+                    transform.DOShakeScale(0.25f, 0.25f, 3);
+                    ReturnToOriginalPlace();
+                }
             }
-            else ReturnToOriginalPlace();
+            else
+            {
+                transform.DOShakeScale(0.25f, 0.25f, 3);
+                ReturnToOriginalPlace();
+            }
 
         } 
     }
@@ -167,9 +178,8 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
 
     // If card is left in an incorrect place it goes back to where it was.
     private void ReturnToOriginalPlace() {
-        // Card goes back to player's hand
-        transform.SetParent(originalParent);    // Reset the what it was
-        transform.localPosition = Vector3.zero; // Place card in the center of the area
+        Tweener tween = transform.DOMove(originalParent.transform.position, 0.35f, true);
+        tween.onComplete += () => { transform.SetParent(originalParent); };
     }
 
     // When mouse is no longer hovering on card
