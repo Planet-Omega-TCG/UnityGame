@@ -83,21 +83,11 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
 
     // When the mouse goes over the card (should zoom in here!)
     public void OnPointerEnter(PointerEventData eventData) {
-
-        //this.transform.SetAsLastSibling(); // bring to the front
-        Debug.Log("enter: " + this.transform.GetSiblingIndex());
-
-        //this.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
         this.transform.DOScale(1.5f, 0.35f);
-
     }
 
     public void OnPointerExit(PointerEventData eventData) {
 
-
-        Debug.Log("exit: " + this.transform.GetSiblingIndex());
-        //this.transform.SetAsFirstSibling();
-        //this.transform.localScale = cachedScale;
         this.transform.DOScale(1f, 0.35f);
 
     }
@@ -189,6 +179,11 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
         MoveCardTo(playArea);
         SequenceManager.instance.AddCardToSequence(this);
         CardManager.instance.RemoveCardFromHand(this.card);
+
+        if (card.ownerID == 2)
+        {
+            this.transform.DORotate(new Vector3(0, 0, 180), 0.5f);
+        }
     }
 
     // Move this.card to a given transform area (e.g. player1Past, Sequence)

@@ -26,6 +26,8 @@ public class SequenceManager : MonoBehaviour
     // Beginning of each sequence. playerId will start.
     public void StartSequenceGameplay(int playerID) {
 
+        startSequencePlayer = playerID;
+
         currentPlayerTurn = playerID;       // this player starts now
         instantsAvailable = ThrowDice(4);   // Four dice are thrown at the beginning of each sequence
         CardManager.instance.DrawCards(instantsAvailable/4); 
