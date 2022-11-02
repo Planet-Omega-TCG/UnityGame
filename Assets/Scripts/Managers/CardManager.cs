@@ -57,10 +57,14 @@ public class CardManager : MonoBehaviour {
         CardController t1 = Instantiate(cardControllerPrefab, player1TravellerArea.root);
         t1.transform.localPosition = Vector3.zero;
         t1.Initialize(travellers[0], 1, player1TravellerArea);
+        t1.transform.SetAsLastSibling(); // bring to the back
+
 
         CardController t2 = Instantiate(cardControllerPrefab, player2TravellerArea.root);
         t2.transform.localPosition = Vector3.zero;
         t2.Initialize(travellers[1], 2, player2TravellerArea);
+        t2.transform.SetAsLastSibling(); // bring to the back
+
 
         PlayerManager.instance.LoadTravellersInfo(travellers);
 

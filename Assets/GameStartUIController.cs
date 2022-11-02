@@ -45,7 +45,8 @@ public class GameStartUIController : MonoBehaviour
         if (chosenTravellers.Count == 2) {
             CardManager.instance.GenerateTravellers(chosenTravellers);
             this.gameObject.SetActive(false);
+            SequenceManager.instance.StartSequenceGameplay(1);
         }
-        
+
     }
 }

@@ -21,8 +21,6 @@ public class SequenceManager : MonoBehaviour
     }
 
     private void Start() {
-        startSequencePlayer = 1;
-        StartSequenceGameplay(startSequencePlayer);
     }
 
     // Beginning of each sequence. playerId will start.

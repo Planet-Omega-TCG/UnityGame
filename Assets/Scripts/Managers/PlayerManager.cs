@@ -10,8 +10,6 @@ public class PlayerManager : MonoBehaviour
 
     private void Awake() {
         instance = this;
-
-        //CreatePlayers(); // This should be called by UIManager!
     }
 
     private void Start() {

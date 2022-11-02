@@ -17,12 +17,18 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
     public TextMeshProUGUI nameText, descriptionText, instantsText;
     private Transform originalParent;
 
+    Vector3 cachedScale;
+
     // Colors for background UI
     private Color yellow    = new Color(0.98f, 0.85f, 0.47f, 0.9f);
     private Color blue      = new Color(0.37f, 0.43f, 0.72f, 0.9f);
     private Color red       = new Color(0.81f, 0.23f, 0.23f, 0.9f);
     
     public bool resolvingCard = false;
+
+    private void Start() {
+        cachedScale = transform.localScale;
+    }
 
     // Write the card "card"'s info into the card object displays.
     public void Initialize(Card card, int ownerID, Transform intendedParent) {
@@ -77,7 +83,23 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
 
     // When the mouse goes over the card (should zoom in here!)
     public void OnPointerEnter(PointerEventData eventData) {
-        
+
+        //this.transform.SetAsLastSibling(); // bring to the front
+        Debug.Log("enter: " + this.transform.GetSiblingIndex());
+
+        //this.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+        this.transform.DOScale(1.5f, 0.35f);
+
+    }
+
+    public void OnPointerExit(PointerEventData eventData) {
+
+
+        Debug.Log("exit: " + this.transform.GetSiblingIndex());
+        //this.transform.SetAsFirstSibling();
+        //this.transform.localScale = cachedScale;
+        this.transform.DOScale(1f, 0.35f);
+
     }
 
     // When the card is clicked.
@@ -183,10 +205,7 @@ public class CardController : MonoBehaviour, IPointerEnterHandler, IPointerDownH
     }
 
     // When mouse is no longer hovering on card
-    public void OnPointerExit(PointerEventData eventData) {
 
-
-    }
 
     // change the card position to the mouse position while dragging.
     public void OnDrag(PointerEventData eventData) {
